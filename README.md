@@ -1,5 +1,8 @@
 # wallet_crytocurrency
 
+![Wallet_crypto](https://user-images.githubusercontent.com/62777613/222626430-5b2756f3-b017-4a16-8687-e85d1536d71e.PNG)
+
+
 A new Flutter project.
 
 ## Getting Started
