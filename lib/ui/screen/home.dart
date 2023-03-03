@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../component/card.dart';
+import '../screen/detail_wallet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,12 +25,32 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 20,
               ),
-              _cardwalletBalance(total: '\$676.989', totalCrypto: '7.5678905 BTC', precent: 2.9999),
-              _cardwalletBalance(total: '\$506.289', totalCrypto: '7.2521322 ETH', precent: -7.9999),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DetailWalletScreen(),
+                    ),
+                  );
+                },
+                child: _cardwalletBalance(context,
+                  total: '\$39.589',
+                  totalCrypto: '7.251332 BTC',
+                  precent: 7.999,
+                ),
+              ),
+              _cardwalletBalance(context,
+                total: '\$43.589',
+                totalCrypto: '5.251332 ETH',
+                precent: -2.999,
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(
+          height: 15,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
@@ -42,7 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: const [
                   Text('24H', style: TextStyle(color: Colors.black45)),
-                  Icon(Icons.keyboard_arrow_down, color: Colors.black45,)
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.black45,
+                  )
                 ],
               ),
             ],
@@ -50,35 +74,46 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 15),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _listCryptoItem(
-                    iconUrl: 'https://s3.ap-southeast-1.amazonaws.com/imgnew.outlookindia.com/uploadimage/library/16_9/16_9_5/IMAGE_1642828518.jpg',
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _listCryptoItem(
+                    iconUrl:
+                        'https://s3.ap-southeast-1.amazonaws.com/imgnew.outlookindia.com/uploadimage/library/16_9/16_9_5/IMAGE_1642828518.jpg',
                     myCrypto: '4.56789004 BTC',
                     myProfit: '\$19.200',
                     myBalance: '\$6.551',
-                    precent: 4.40
-                  ),
-                  _listCryptoItem(
-                    iconUrl: 'https://m.media-amazon.com/images/I/A1u96Y7XKWL._AC_UF894,1000_QL80_.jpg',
+                    precent: 4.42),
+                _listCryptoItem(
+                    iconUrl:
+                        'https://thumbs.dreamstime.com/b/golden-ethereum-blockchain-coin-symbol-crypto-currency-isolated-white-background-realistic-vector-illustration-106345796.jpg',
                     myCrypto: '10.78900349 ETH',
-                    myProfit: '\$27.998',
-                    myBalance: '\$8.888',
-                    precent: 6.90
-                  ),
-                ],
-              ),
+                    myProfit: '\$577',
+                    myBalance: '\$0.88',
+                    precent: 3.99),
+                _listCryptoItem(
+                    iconUrl:
+                        'https://i.etsystatic.com/18780231/r/il/ba8248/3214096260/il_570xN.3214096260_f46r.jpg',
+                    myCrypto: '7.00984302 XRP',
+                    myProfit: '\$377',
+                    myBalance: '\$0.47',
+                    precent: -13.92),
+              ],
             ),
-          )
-        )
+          ),
+        ))
       ],
     );
   }
 
-  Widget _listCryptoItem({String ?iconUrl, double ?precent, String ?myCrypto, myBalance, myProfit}) {
+  Widget _listCryptoItem(
+      {String? iconUrl,
+      double? precent,
+      String? myCrypto,
+      myBalance,
+      myProfit}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: card(
@@ -93,53 +128,45 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 20,
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '$myCrypto',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$myCrypto',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
-                  Text(
-                    '$myProfit',
+                ),
+                Text('$myProfit',
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black45
-                    )
-                  )
-                ],
-              )
-            ),
+                        fontWeight: FontWeight.bold, color: Colors.black45))
+              ],
+            )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   '$myBalance',
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 18
-                  ),
+                      fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Text(
                   precent! > 0 ? '+ $precent %' : '$precent %',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    color: precent > 0 ?Colors.green : Colors.blue
-                  ),
+                      fontWeight: FontWeight.bold,
+                      color: precent > 0 ? Colors.green : Colors.blue),
                 ),
               ],
             ),
-
           ],
         ),
       ),
     );
   }
 
-  Widget _cardwalletBalance({String ?total, totalCrypto, double ?precent}) {
+  Widget _cardwalletBalance(BuildContext context,
+      {String? total, totalCrypto, double? precent}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: card(
@@ -199,18 +226,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                   decoration: BoxDecoration(
                     color: precent! > 0 ? Colors.green : Colors.blue,
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
                   child: Text(
-                    precent  > 0 ? '+ $precent %' : '$precent %',
+                    precent > 0 ? '+ $precent %' : '$precent %',
                     style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 )
               ],
@@ -221,10 +248,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               '$totalCrypto',
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-                color: Colors.black45
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: Colors.black45),
             ),
             const Center(
               child: Icon(
